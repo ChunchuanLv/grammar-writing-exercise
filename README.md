@@ -1,9 +1,8 @@
 Competitive Grammar Writing in Python
 =====================================
 
-Get started:
-
-    git clone https://github.com/anoopsarkar/cgw.git
+This repository is a derivation of [Competitive Grammar Writing in Python
+](https://github.com/anoopsarkar/cgw.git)
 
 This task involves writing or creating weighted context-free grammars
 in order to parse English sentences and utterances. The vocabulary
@@ -13,12 +12,12 @@ is fixed.
 
 A context-free grammar (CFG) is defined using the following building blocks:
 
-* $$N$$, a set of non-terminal symbols (these symbols do not appear in the input)
-* $$S$$, one non-terminal from $$N$$ called the start symbol. All derivations in a CFG start from $$S$$
-* $$V$$, a vocabulary of words called terminal symbols. $$N$$ and $$V$$ are disjoint
-* Rules of the form: $$A \rightarrow \alpha$$ where $$A \in N$$ and $$\alpha \in (N \cup V)^\ast$$.
+* $N$, a set of non-terminal symbols (these symbols do not appear in the input)
+* $S$, one non-terminal from $N$ called the start symbol. All derivations in a CFG start from $S$
+* $V$, a vocabulary of words called terminal symbols. $N$ and $V$ are disjoint
+* Rules of the form: $A \rightarrow \alpha$ where $A \in N$ and $\alpha \in (N \cup V)^\ast$.
 * Weights or frequencies or probabilities can be associated with each rule in a CFG.
-* A probabilistic CFG is defined as a group of conditional probabilities $$P(\alpha \mid A)$$: one for each non-terminal $$A$$
+* A probabilistic CFG is defined as a group of conditional probabilities $P(\alpha \mid A)$: one for each non-terminal $A$
 
 A context-free grammar that is in extended Chomsky Normal Form
 (eCNF) iff the right hand side of each CFG rule is either one
@@ -29,7 +28,7 @@ grammar for the syntax of Python, for instance. In this exercise
 we will try to write a grammar for a fragment of English.
 
 A derivation of this CFG starts with a string (called a sentential
-form) containing the start symbol $$S$$ and then replaces the
+form) containing the start symbol $S$ and then replaces the
 non-terminals in that string recursively with the right hand side
 of a rule (if there are multiple right hand sides for the same
 non-terminal we pick one of them) until only terminal symbols are
@@ -59,7 +58,7 @@ The non-terminal `VP` is used to keep the grammar in eCNF. The
 probability of a particular rule is obtained by normalizing the
 weights for each left-hand side non-terminal in the grammar. For
 example, for rule `NP -> Det Nbar` the conditional probability
-`P(Det Nbar | NP)` is $$\frac{20}{20+1}$$.
+`P(Det Nbar | NP)` is $\frac{20}{20+1}$.
 
 The grammars in `S1.gr` and `S2.gr` are connected via the following rules in `S1.gr`:
 
@@ -86,7 +85,7 @@ The parser has several options to speed up parsing, such as beam
 size and pruning. Most likely you will not need to use those options
 (unless your grammars are huge).
 
-    python pcfg_parse_gen.py -h
+    python2 pcfg_parse_gen.py -h
 
 ### Parsing input
 
@@ -123,7 +122,7 @@ The probability of the derivation is simply the product of the
 probabilities of the rules used in that derivation. For this
 derivation the probability is:
 
-<p>$$ \frac{99}{100} \times \frac{1}{2} \times \frac{1}{21} \times \frac{1}{9} \times 1 \times 1 \times \frac{1}{6} \times \frac{20}{21} \times \frac{1}{9} \times \frac{10}{11} \times \frac{1}{21} $$</p> 
+<p>$ \frac{99}{100} \times \frac{1}{2} \times \frac{1}{21} \times \frac{1}{9} \times 1 \times 1 \times \frac{1}{6} \times \frac{20}{21} \times \frac{1}{9} \times \frac{10}{11} \times \frac{1}{21} $</p> 
 
 The derivation can be written down as a parse tree by simply linking
 the non-terminals together. The following tree is simply another
@@ -137,19 +136,19 @@ the non-terminals together. The following tree is simply another
 
 The parser also reports the negative
 cross-entropy score for the whole set of sentences. Assume the
-parser gets a text of $$n$$ sentences to parse: $$s_1, s_2, \ldots,
-s_n$$ and we write $$|s_i|$$ to denote the length of each sentence
-$$s_i$$. The probability assigned to each sentence by the parser is
-$$P(s_1), P(s_2), \ldots, P(s_n)$$. The negative cross entropy is the
+parser gets a text of $n$ sentences to parse: $s_1, s_2, \ldots,
+s_n$ and we write $|s_i|$ to denote the length of each sentence
+$s_i$. The probability assigned to each sentence by the parser is
+$P(s_1), P(s_2), \ldots, P(s_n)$. The negative cross entropy is the
 average log probability score (bits per word) and is defined as
 follows:
 
-<p>$$\textrm{score}(s_1, \ldots, s_n) = \frac{ \log P(s_1) + \log P(s_2) + \ldots + \log P(s_n) }{ |s_1| + |s_2| + \ldots + |s_n| }$$</p> 
+<p>$\textrm{score}(s_1, \ldots, s_n) = \frac{ \log P(s_1) + \log P(s_2) + \ldots + \log P(s_n) }{ |s_1| + |s_2| + \ldots + |s_n| }$</p> 
 
 We keep the value as negative cross entropy so that higher scores
 are better. 
 
-    python pcfg_parse_gen.py -i -g "*.gr" < example_sentences.txt
+    python2 pcfg_parse_gen.py -i -g "*.gr" < example_sentences.txt
     #loading grammar files: S1.gr, S2.gr, Vocab.gr
     #reading grammar file: S1.gr
     #reading grammar file: S2.gr
@@ -167,7 +166,7 @@ producing grammatical sentences with high probability. The following
 command samples 20 sentences from the `S1.gr,Vocab.gr` grammar
 files. 
 
-    python pcfg_parse_gen.py -o 20 -g S1.gr,Vocab.gr
+    python2 pcfg_parse_gen.py -o 20 -g S1.gr,Vocab.gr
     #loading grammar files: S1.gr, Vocab.gr
     #reading grammar file: S1.gr
     #reading grammar file: Vocab.gr
