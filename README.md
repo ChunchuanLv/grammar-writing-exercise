@@ -193,9 +193,8 @@ files.
 
 ## Instruction for TA and Graders
 
-1. TA get all team submission under this directory, and run
-``` sh generate_sentence.sh'```
-this will generate sample.txt under all team submission.
+1. TA get all team submission under this directory, and generate sample.txt under all team submission by running
+    * ``` sh generate_sentence.sh ```
 2. TA copy all_sentences.cvs into google sheets (one for each grader) [e.g.](https://docs.google.com/spreadsheets/d/1Ynq4jlBpU8j06uMp04A-q7XsSh8yW_mtDpBND4qF500/edit?usp=sharing),
 and let graders assign grammaticality from 0 to 2 (where 2 is grammatical)
     * ``` python get_all_input.py [n_grader]```
