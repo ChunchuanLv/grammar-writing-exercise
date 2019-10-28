@@ -4,25 +4,25 @@ import random
 if __name__ == '__main__':
     folder_list = [f for f in os.listdir('.') if not os.path.isfile(os.path.join('.', f)) and f[0] != "."]
     grammatical_sentences = {}
-    for i in range(n_output):
-        with open("CGW-grader"+str(i)+".txt","w+") as graded_f:
-            next(graded_f)
-            for line in graded_f:
-                team, snt , grammaticality = line.split("\t")
-                grammaticality = int(grammaticality)
-                grammatical_sentences.setdefault((team,snt),0)
-                grammatical_sentences[(team,snt)] += grammaticality
 
+    print("team\tRecall\tnegative entropy:")
     for team in folder_list:
-        with open(team+"/parsed.txt") as f:
-            total_sentences = 0
-            parsed = 0
-            entropy = 0
-            for line in graded_f:
-                if line.startswith("#-cross entropy (bits/word): "):
-                    entropy = line[len("#-cross entropy (bits/word): "):]
-                elif line.startswith("#No parses found for"):
-                    total_sentences += 1
+        try:
+            with open(team+"/parsed.txt") as f:
+                total_sentences = 0
+                parsed = 0
+                entropy = 0
+                for line in f:
+                    if line.startswith("#-cross entropy (bits/word): "):
+                        entropy = line[len("#-cross entropy (bits/word): "):]
+                    elif line.startswith("#No parses found for"):
+                        total_sentences += 1
+                    else:
+                        parsed += 1
+                        total_sentences += 1
+                if entropy == 0:
+                    print (team, "\t","failed")
                 else:
-                    parsed += 1
-            print ("team",team, "Recall:", parsed/total_sentences,"negative entropy:", entropy)
+                    print (team, "\t", parsed/total_sentences,"\t", entropy)
+        except:
+                print (team, "\t","failed")

@@ -204,10 +204,10 @@ and let graders assign grammaticality from 0 to 2 (where 2 is grammatical)
 
 3. TA get all the sentences universally judged to be grammatical by graders,
 and use each grammar to parse grammatical sentences that is not produced by itself.
-    * Export googlesheet back into {CGW-grader0.txt}s (seperator tab)
+    * Export googlesheet back into {CGW-grader0.tsv}s (seperator tab)
     * ``` python get_other_and_precision.py [n_grader]```
     * ``` sh parse_other.sh```
-    * ``` python get_recall_and_negative_entropy.py [n_grader]```
+    * ``` python get_recall_and_negative_entropy.py ```
 
 4. TA manuelly input 4 metrics to googlesheet [e.g.](https://docs.google.com/spreadsheets/d/1xzLW4FH5X0vAWXHr4-0Oi4gEtHuVwyYysQ2m1kkLjQQ/edit?usp=sharing).
     * Precision  =sum(grammaticality)/ (2* num sentences)
